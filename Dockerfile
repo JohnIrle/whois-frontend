@@ -10,6 +10,6 @@ RUN npm install --silent
 
 RUN npm install react-scripts@4.0.3 -g --silent
 
-COPY --chown=node:node . ./
+COPY . ./
 
 CMD ["npm", "start"]
