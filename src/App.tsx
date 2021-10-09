@@ -1,31 +1,24 @@
 import React, { useState } from "react";
-import axios, { AxiosError } from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { RootStore } from "./store";
 import Form from "./components/Form/Form";
+import WhoisDisplay from "./components/WhoisDisplay/WhoisDisplay";
+import { submitWhois } from "./actions/whoisActions";
 
 function App() {
-    const [loading, setLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-    const [data, setData] = useState({});
-
+    const { loading, error } = useSelector((state: RootStore) => state.whois);
+    const dispatch = useDispatch();
     const onSubmit = async (IPorDomain: string) => {
-        try {
-            setLoading(true);
-
-            const response = await axios.post("/api/whois", {
-                IPorDomain,
-            });
-
-            setData(response.data);
-        } catch (error) {
-            if (axios.isAxiosError(error)) {
-                setErrorMessage(error.response!.data);
-            }
-        }
+        dispatch(submitWhois(IPorDomain));
     };
 
     return (
         <>
             <Form onSubmit={onSubmit} />
+
+            {error && <h2>Something went wrong</h2>}
+            {loading && <h2>Loading...</h2>}
+            {!loading && !error && <WhoisDisplay />}
         </>
     );
 }
