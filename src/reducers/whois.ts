@@ -4,8 +4,6 @@ import {
     WHOIS_SUCCESS,
     WhoisTypes,
 } from "../actions/whoisActionTypes";
-import produce from "immer";
-import { WhoisRecord } from "../types/whoisResponse";
 
 interface InitialStateI {
     loading: boolean;
@@ -25,9 +23,11 @@ export default function whois(
 ): InitialStateI {
     switch (action.type) {
         case WHOIS_REQUEST:
-            return produce(state, (draft) => {
-                draft.loading = true;
-            });
+            return {
+                loading: true,
+                error: false,
+                errorMessages: [],
+            };
         case WHOIS_SUCCESS:
             return {
                 loading: false,
