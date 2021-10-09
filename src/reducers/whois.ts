@@ -13,7 +13,7 @@ interface InitialStateI {
 }
 
 const initialState: InitialStateI = {
-    loading: true,
+    loading: false,
     error: false,
     errorMessages: [],
 };
