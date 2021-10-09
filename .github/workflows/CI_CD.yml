@@ -1,0 +1,44 @@
+name: CI/CD whois client
+
+on:
+    push:
+        branches:
+            - "main"
+
+jobs:
+    # Check if applicaion builds
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Build the docker_compose
+              run: docker-compose up -d --build
+
+            - name: Build the application
+              run: docker-compose exec -T whois_client npm run build
+
+    Deploy:
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v2
+            - name: Deploy in EC2
+              env:
+                  PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
+                  HOST_NAME: ${{ secrets.HOST_NAME }}
+                  USER_NAME: ${{ secrets.USER_NAME }}
+
+              run: |
+                  echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+                  ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOST_NAME} '
+                    # We have access to EC2, Start Deploy
+                    cd /home/ubuntu/whois-frontend &&
+                    git checkout main &&
+                    git fetch --all &&
+                    git reset --hard origin/main &&
+                    git pull origin main &&
+                    docker-compose -f docker-compose.prod.yml up -d --build
+                  '
