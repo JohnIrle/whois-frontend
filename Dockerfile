@@ -8,6 +8,7 @@ RUN npm install --silent
 
 COPY . ./
 
-RUN npm config set unsafe-perm true
+RUN chown -Rh $user:$user /project
+USER $user
 
 CMD ["npm", "start"]
