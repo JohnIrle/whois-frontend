@@ -24,6 +24,7 @@ const Form = ({ onSubmit }: FormProps) => {
                 id="searchInput"
                 className={styles.input}
                 value={IPorDomain}
+                required
                 onChange={(e) => setIPorDomain(e.target.value)}
             />
             <button type="submit" className={styles.submitButton}>

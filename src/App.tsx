@@ -6,7 +6,9 @@ import WhoisDisplay from "./components/WhoisDisplay/WhoisDisplay";
 import { submitWhois } from "./actions/whoisActions";
 
 function App() {
-    const { loading, error } = useSelector((state: RootStore) => state.whois);
+    const { loading, error, errorMessages } = useSelector(
+        (state: RootStore) => state.whois
+    );
     const dispatch = useDispatch();
     const onSubmit = async (IPorDomain: string) => {
         dispatch(submitWhois(IPorDomain));
@@ -16,7 +18,7 @@ function App() {
         <>
             <Form onSubmit={onSubmit} />
 
-            {error && <h2>Something went wrong</h2>}
+            {error && <h2>{errorMessages[0].message}</h2>}
             {loading && <h2>Loading...</h2>}
             {!loading && !error && <WhoisDisplay />}
         </>
