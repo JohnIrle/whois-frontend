@@ -14,5 +14,6 @@ RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
 RUN npm install react-scripts@4.0.3 -g --silent
 
 COPY . ./
+RUN chown -R node:node /app/node_modules
 
 CMD ["npm", "start"]
