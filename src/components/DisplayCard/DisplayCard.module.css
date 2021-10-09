@@ -1,0 +1,13 @@
+.contentItem {
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;
+}
+
+.displayItem {
+    margin-top: 1rem;
+    border: 1px solid grey;
+    background-color: #fff;
+    padding: 1rem;
+    width: 100%;
+    word-wrap: break-word;
+}
