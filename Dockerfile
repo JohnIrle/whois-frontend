@@ -8,6 +8,8 @@ COPY --chown=node:node package.json ./
 COPY --chown=node:node package-lock.json ./
 RUN npm install --silent
 
+RUN mkdir -p node_modules/.cache && chmod -R 777 node_modules/.cache
+
 RUN npm install react-scripts@4.0.3 -g --silent
 
 COPY . ./
