@@ -7,7 +7,6 @@ COPY package-lock.json ./
 RUN npm install --silent
 
 COPY . ./
-RUN chown -R node:node /app/node_modules
 
 RUN chown -Rh $user:$user /app
 USER $user
