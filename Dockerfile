@@ -8,7 +8,7 @@ RUN npm install --silent
 
 COPY . ./
 
-RUN chown -Rh $user:$user /project
+RUN chown -Rh $user:$user /app
 USER $user
 
 CMD ["npm", "start"]
