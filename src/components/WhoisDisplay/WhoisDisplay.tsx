@@ -17,14 +17,31 @@ const WhoisDisplay = () => {
 
     return (
         <div style={{ paddingBottom: "2rem" }}>
-            <DisplayCard
-                title="Administrative Contact"
-                entry={administrativeContact}
-            />
-            <DisplayCard title="Technical Contact" entry={technicalContact} />
-            <DisplayCard title="Registrant" entry={registrant} />
-            <DisplayCard title="Name Servers" entry={nameServers} />
-            <DisplayCard title="Audit" entry={audit} dates={true} />
+            {WhoisRecord && (
+                <>
+                    {administrativeContact && (
+                        <DisplayCard
+                            title="Administrative Contact"
+                            entry={administrativeContact}
+                        />
+                    )}
+                    {technicalContact && (
+                        <DisplayCard
+                            title="Technical Contact"
+                            entry={technicalContact}
+                        />
+                    )}
+                    {registrant && (
+                        <DisplayCard title="Registrant" entry={registrant} />
+                    )}
+                    {nameServers && (
+                        <DisplayCard title="Name Servers" entry={nameServers} />
+                    )}
+                    {audit && (
+                        <DisplayCard title="Audit" entry={audit} dates={true} />
+                    )}
+                </>
+            )}
         </div>
     );
 };

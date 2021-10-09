@@ -16,6 +16,7 @@ const initialState: InitialStateI = {
     loading: false,
     error: false,
     errorMessages: [],
+    data: { WhoisRecord: {} },
 };
 export default function whois(
     state = initialState,
