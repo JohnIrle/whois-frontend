@@ -17,4 +17,4 @@ jobs:
               run: docker-compose up -d --build
 
             - name: Build the application
-              run: docker-compose exec -T whois_frontend npm run build
+              run: docker-compose exec -u node -T whois_frontend npm run build
